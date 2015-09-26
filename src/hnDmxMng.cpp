@@ -14,21 +14,25 @@ void hnDmxMng::setAdsr(note_t note){
         switch (note.node){
                 
             case NODE_A:
+                cout << "node_A" << endl;
                 setAdsr(nodes[NODE_A].light_ch, note.adsr);
                 setAdsr(nodes[NODE_A].sound_ch, note.adsr_sound);
                 break;
                 
             case NODE_B:
+                cout << "node_B" << endl;
                 setAdsr(nodes[NODE_B].light_ch, note.adsr);
                 setAdsr(nodes[NODE_B].sound_ch, note.adsr_sound);
                 break;
                 
             case NODE_C:
+                cout << "node_C" << endl;
                 setAdsr(nodes[NODE_C].light_ch, note.adsr);
                 setAdsr(nodes[NODE_C].sound_ch, note.adsr_sound);
                 break;
                 
             case NODE_D:
+                cout << "node_D" << endl;
                 setAdsr(nodes[NODE_D].light_ch, note.adsr);
                 setAdsr(nodes[NODE_D].sound_ch, note.adsr_sound);
                 break;
@@ -146,7 +150,7 @@ void hnDmxMng::update(){
 
 
 
-void hnDmxMng::getCurrent(int ch){
+float hnDmxMng::getCurrent(int ch){
     
     
     return vals[ch].getCurrent();

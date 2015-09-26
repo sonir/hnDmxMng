@@ -72,6 +72,7 @@ typedef struct note_t { //Using trigger with duration (=sustain_time)
     float duration;
     adsr_t adsr;
     adsr_t adsr_sound;
+    float amp;
     
 }note_t;
 

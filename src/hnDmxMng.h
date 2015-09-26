@@ -3,6 +3,7 @@
 #include <vector>
 #include "Dmx.hpp"
 #include "slAdsr.h"
+#include "hnOutUnit.h"
 
 class hnDmxMng {
 
@@ -40,12 +41,13 @@ class hnDmxMng {
         void setDirectValue(int ch, float val);
         void setDirectValueWithNode(node_e node, float val);
         void update();
-        void getCurrent(int ch);
+        float getCurrent(int ch);
         void allMute();
 
         bool direct_mode = false; //direct mode uses siple values instead of adsr
         node_t nodes[NODE_NUM];
         float params[CH_NUM];
+        //vector<hnOutUnit>vals;
         vector<slAdsr>vals;
         Dmx dmx;
   
