@@ -41,8 +41,10 @@ void hnDmxMng::setAdsr(note_t note){
                 break;
                 
             case NODE_D:
+#ifdef DEBUG
                 cout << "node_D" << endl;
                 cout << nodes[NODE_D].light_ch << "," << nodes[NODE_D].sound_ch<< endl;
+#endif                
                 setAdsr(nodes[NODE_D].light_ch, note.adsr);
                 setAdsr(nodes[NODE_D].sound_ch, note.adsr_sound);
                 break;
