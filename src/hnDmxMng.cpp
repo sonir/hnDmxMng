@@ -2,8 +2,8 @@
 
 void hnDmxMng::setAdsr(int ch, adsr_t a){
     
-    vals[ch].setup(a);
-    vals[ch].bang();
+    vals[ch-1].setup(a);
+    vals[ch-1].bang();
     
 }
 
@@ -14,25 +14,35 @@ void hnDmxMng::setAdsr(note_t note){
         switch (note.node){
                 
             case NODE_A:
+#ifdef DEBUG
                 cout << "node_A" << endl;
+                cout << nodes[NODE_A].light_ch << "," << nodes[NODE_A].sound_ch<< endl;
+#endif
                 setAdsr(nodes[NODE_A].light_ch, note.adsr);
                 setAdsr(nodes[NODE_A].sound_ch, note.adsr_sound);
                 break;
                 
             case NODE_B:
+#ifdef DEBUG
                 cout << "node_B" << endl;
+                cout << nodes[NODE_B].light_ch << "," << nodes[NODE_B].sound_ch<< endl;
+#endif
                 setAdsr(nodes[NODE_B].light_ch, note.adsr);
                 setAdsr(nodes[NODE_B].sound_ch, note.adsr_sound);
                 break;
                 
             case NODE_C:
+#ifdef DEBUG
                 cout << "node_C" << endl;
+                cout << nodes[NODE_C].light_ch << "," << nodes[NODE_C].sound_ch<< endl;
+#endif
                 setAdsr(nodes[NODE_C].light_ch, note.adsr);
                 setAdsr(nodes[NODE_C].sound_ch, note.adsr_sound);
                 break;
                 
             case NODE_D:
                 cout << "node_D" << endl;
+                cout << nodes[NODE_D].light_ch << "," << nodes[NODE_D].sound_ch<< endl;
                 setAdsr(nodes[NODE_D].light_ch, note.adsr);
                 setAdsr(nodes[NODE_D].sound_ch, note.adsr_sound);
                 break;
@@ -93,12 +103,12 @@ void hnDmxMng::setAdsr(note_t note){
 
 void hnDmxMng::setDirectValue(int ch, float val){
     
-    params[ch]=val;
+    params[ch-1]=val;
     
 }
 
 void hnDmxMng::setDirectValueWithNode(node_e node, float val){
-    
+
     
     switch (node){
 
@@ -120,7 +130,11 @@ void hnDmxMng::setDirectValueWithNode(node_e node, float val){
         case NODE_D:
             setDirectValue(nodes[NODE_D].light_ch, val);
             setDirectValue(nodes[NODE_D].sound_ch, val);
+    cout << "ff" << endl;
             break;
+            
+        default:
+            cout << "ERR::hnDmxMng::setDirectValueWithNode::UnknownMode was selected" << endl;
             
     }
 
@@ -130,18 +144,30 @@ void hnDmxMng::setDirectValueWithNode(node_e node, float val){
 
 
 void hnDmxMng::update(){
-    
     if(!direct_mode){
         for(int i=0; i<vals.size(); i++){
             
             vals[i].update();
-            dmx.simpleTrigger(i,vals[i].getCurrent());
+            float val = vals[i].getCurrent();
+            if(val<=0.0 && is_finished[i]==true){
+
+                continue; //stop sending of reset channnel
+                
+            }else if(val<=0.0){
+                
+                dmx.simpleTrigger(i+1,vals[i].getCurrent());
+                is_finished[i]=true;
+                
+            }else {
+                is_finished[i]=false;
+                dmx.simpleTrigger(i+1,vals[i].getCurrent());
+            }
 
         }
     }else{
     
         for(int i=0; i<CH_NUM;i++){
-            dmx.simpleTrigger(i,params[i]);
+            dmx.simpleTrigger(i+1,params[i]);
         }
         
     }

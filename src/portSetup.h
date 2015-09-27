@@ -61,7 +61,7 @@ typedef struct node_t {
 //ENUM for Event Hundling
 typedef enum {VOID, ARRIVED, CLIMAX} command_e;
 typedef enum {NODE_A, NODE_B, NODE_C, NODE_D} node_e;
-typedef enum {MAIN_S, MAIN_M, MAIN_L, SUB1, SUB2, SUB3, GLITCH1, GLITCH2, GLITCH3} note_type_e;
+typedef enum {MAIN_S, MAIN_M, MAIN_L, SUB1, SUB2, SUB3, GLITCH1, GLITCH2, GLITCH3, OFFSET_ON, OFFSET_OFF} note_type_e;
 typedef enum {RED,GREEN,BLUE,BLACK} color_e;
 
 typedef struct note_t { //Using trigger with duration (=sustain_time)

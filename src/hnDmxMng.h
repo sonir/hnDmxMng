@@ -17,6 +17,7 @@ class hnDmxMng {
                 slAdsr sa;
                 sa.exponential = true;
                 vals.push_back(sa);
+                is_finished.push_back(false);
                 params[i]=0.0f;
                 
             }
@@ -49,6 +50,7 @@ class hnDmxMng {
         float params[CH_NUM];
         //vector<hnOutUnit>vals;
         vector<slAdsr>vals;
+        vector<bool>is_finished;
         Dmx dmx;
   
     
