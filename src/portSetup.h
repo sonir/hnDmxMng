@@ -56,6 +56,10 @@ typedef struct node_t {
 #define SUB_D BLB8
 
 
+//PARAM
+#define OFFSET_LIGHT 0.1
+#define OFFSET_SOUND 0.47
+
 //Setup NODE and BLB x SOUND EXISTS IN hmDmzMng.h
 
 //ENUM for Event Hundling

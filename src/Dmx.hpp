@@ -26,8 +26,8 @@ class Dmx {
     public:
         Dmx(){
             
-//            dest = new Destination("224.0.0.1", 7770);
-            dest = new Destination("192.168.100.151" , 7770);
+            dest = new Destination("224.0.0.1", 7770);
+//            dest = new Destination("192.168.100.151" , 7770);
             
         }
     

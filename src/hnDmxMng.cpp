@@ -17,7 +17,7 @@ void hnDmxMng::setAdsr(note_t note){
 #ifdef DEBUG
                 cout << "node_A" << endl;
                 cout << nodes[NODE_A].light_ch << "," << nodes[NODE_A].sound_ch<< endl;
-#endif
+#endif//
                 setAdsr(nodes[NODE_A].light_ch, note.adsr);
                 setAdsr(nodes[NODE_A].sound_ch, note.adsr_sound);
                 break;
@@ -26,7 +26,7 @@ void hnDmxMng::setAdsr(note_t note){
 #ifdef DEBUG
                 cout << "node_B" << endl;
                 cout << nodes[NODE_B].light_ch << "," << nodes[NODE_B].sound_ch<< endl;
-#endif
+#endif//
                 setAdsr(nodes[NODE_B].light_ch, note.adsr);
                 setAdsr(nodes[NODE_B].sound_ch, note.adsr_sound);
                 break;
@@ -35,7 +35,7 @@ void hnDmxMng::setAdsr(note_t note){
 #ifdef DEBUG
                 cout << "node_C" << endl;
                 cout << nodes[NODE_C].light_ch << "," << nodes[NODE_C].sound_ch<< endl;
-#endif
+#endif//
                 setAdsr(nodes[NODE_C].light_ch, note.adsr);
                 setAdsr(nodes[NODE_C].sound_ch, note.adsr_sound);
                 break;
@@ -44,7 +44,7 @@ void hnDmxMng::setAdsr(note_t note){
 #ifdef DEBUG
                 cout << "node_D" << endl;
                 cout << nodes[NODE_D].light_ch << "," << nodes[NODE_D].sound_ch<< endl;
-#endif                
+#endif//
                 setAdsr(nodes[NODE_D].light_ch, note.adsr);
                 setAdsr(nodes[NODE_D].sound_ch, note.adsr_sound);
                 break;
@@ -101,6 +101,30 @@ void hnDmxMng::setAdsr(note_t note){
     }
 }
 
+void hnDmxMng::setOffset(node_e nd, note_type_e flg){
+    
+    bool val;
+    
+    if(flg==OFFSET_ON)val = true;
+    else if(flg==OFFSET_OFF) val = false;
+    else cout << "DmxMng::setOffset - Unknown notetype" << endl;
+    
+    
+    int light = nodes[nd].light_ch;
+    int sound = nodes[nd].sound_ch;
+    
+    if(val==true){
+        vals[light-1].setOffset(OFFSET_LIGHT);
+        vals[sound-1].setOffset(OFFSET_SOUND);
+    }else{
+        
+        vals[light-1].setOffset(0.0f);
+        vals[sound-1].setOffset(0.0f);
+        
+    }
+    
+    
+}
 
 
 void hnDmxMng::setDirectValue(int ch, float val){
@@ -204,6 +228,7 @@ void hnDmxMng::allMute(){
         
         for(int i=0; i<CH_NUM; i++){
             params[i] = 0.0;
+            dmx.simpleTrigger(i,vals[i].getCurrent());
         }
 
     }

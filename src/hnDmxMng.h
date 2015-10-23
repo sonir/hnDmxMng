@@ -14,8 +14,8 @@ class hnDmxMng {
             //Setup ADSR arrays
             for(int i=0; i<CH_NUM; i++){
                 
-                slAdsr sa;
-                sa.exponential = true;
+                hnOutUnit sa;
+                sa.adsr.exponential = true;
                 vals.push_back(sa);
                 is_finished.push_back(false);
                 params[i]=0.0f;
@@ -39,17 +39,20 @@ class hnDmxMng {
 
         void setAdsr(int ch, adsr_t a);
         void setAdsr(note_t note);
+        void setOffset(node_e nd, note_type_e flg);
+    
         void setDirectValue(int ch, float val);
         void setDirectValueWithNode(node_e node, float val);
         void update();
         float getCurrent(int ch);
+    
+    
         void allMute();
 
         bool direct_mode = false; //direct mode uses siple values instead of adsr
         node_t nodes[NODE_NUM];
         float params[CH_NUM];
-        //vector<hnOutUnit>vals;
-        vector<slAdsr>vals;
+        vector<hnOutUnit>vals;
         vector<bool>is_finished;
         Dmx dmx;
   
